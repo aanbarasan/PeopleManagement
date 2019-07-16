@@ -1,6 +1,6 @@
 import React from 'react';
 
-const Breadcrumbs = React.lazy(() => import('./views/Base/Breadcrumbs'));
+/*const Breadcrumbs = React.lazy(() => import('./views/Base/Breadcrumbs'));
 const Cards = React.lazy(() => import('./views/Base/Cards'));
 const Carousels = React.lazy(() => import('./views/Base/Carousels'));
 const Collapses = React.lazy(() => import('./views/Base/Collapses'));
@@ -79,6 +79,13 @@ const routes = [
   { path: '/charts', name: 'Charts', component: Charts },
   { path: '/users', exact: true,  name: 'Users', component: Users },
   { path: '/users/:id', exact: true, name: 'User Details', component: User },
+];*/
+
+const Dashboard = React.lazy(() => import('./views/Dashboard/Dashboard'));
+
+const routes = [
+  { path: '/', exact: true, name: 'Home' },
+  { path: '/dashboard', name: 'Dashboard', component: Dashboard }
 ];
 
 export default routes;

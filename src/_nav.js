@@ -1,4 +1,31 @@
+
 export default {
+  items: [
+    {
+      name: 'Home',
+      url: '/dashboard',
+      icon: 'icon-speedometer'
+    },
+    {
+      name: 'Create',
+      icon: 'icon-puzzle',
+      children: [
+        {
+          name: 'Employee',
+          url: '/create/employee',
+          icon: 'icon-puzzle'
+        },
+        {
+          name: 'Device',
+          url: '/create/device',
+          icon: 'icon-puzzle'
+        }
+      ]
+    }
+  ]
+}
+
+/*export default {
   items: [
     {
       name: 'Dashboard',
@@ -277,4 +304,4 @@ export default {
       attributes: { target: '_blank', rel: "noopener" },
     },
   ],
-};
+};*/

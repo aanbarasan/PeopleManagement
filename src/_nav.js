@@ -8,17 +8,33 @@ export default {
     },
     {
       name: 'Create',
-      icon: 'icon-puzzle',
+      icon: 'fa fa-plus',
       children: [
         {
           name: 'Employee',
           url: '/create/employee',
-          icon: 'icon-puzzle'
+          icon: 'fa fa-user-plus'
         },
         {
           name: 'Device',
           url: '/create/device',
-          icon: 'icon-puzzle'
+          icon: 'fa fa-laptop'
+        }
+      ]
+    },
+    {
+      name: 'View',
+      icon: 'fa fa-book',
+      children: [
+        {
+          name: 'Employee',
+          url: '/view/employee',
+          icon: 'fa fa-user'
+        },
+        {
+          name: 'Device',
+          url: '/view/device',
+          icon: 'fa fa-desktop'
         }
       ]
     }

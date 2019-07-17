@@ -21,6 +21,7 @@
     "core-js": "^3.1.4",
     "enzyme": "^3.10.0",
     "enzyme-adapter-react-16": "^1.14.0",
+    "express": "~4.16.1",
     "flag-icon-css": "^3.3.0",
     "font-awesome": "^4.7.0",
     "node-sass": "^4.12.0",
@@ -33,13 +34,19 @@
     "react-router-dom": "^5.0.1",
     "react-test-renderer": "^16.8.6",
     "reactstrap": "^8.0.0",
-    "simple-line-icons": "^2.4.1"
+    "simple-line-icons": "^2.4.1",
+    "cookie-parser": "~1.4.4",
+    "debug": "~2.6.9",
+    "ejs": "~2.6.1",
+    "http-errors": "~1.6.3",
+    "morgan": "~1.9.1"
   },
   "devDependencies": {
     "react-scripts": "^3.0.1"
   },
   "scripts": {
     "start": "react-scripts start",
+    "server": "node ./server/bin/www",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "test:cov": "npm test -- --coverage --watchAll=false",

@@ -1,1 +1,23 @@
 // Here you can add other styles
+
+.nopadding{
+    padding: 0px;
+}
+
+.UploadDropButton{
+    width: 100%;
+    height: 200px;
+    border: none;
+    outline: none;
+    font-size: 35px;
+    padding: 15px;
+    background-color: #dedede;
+}
+
+.UploadDropButtonSuccess{
+    background-color: #21d22170;
+}
+
+.FileOverUploadDropButton{
+    background-color: #ff000066;
+}

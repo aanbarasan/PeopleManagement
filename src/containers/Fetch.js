@@ -55,7 +55,7 @@ function fetchData(props) {
 
     uploadBulkData: function(props) {
         props.url = url + "/manage/upload-bulkdata";
-        props.method = "GET";
+        props.method = "POST";
         fetchData(props);
     }
   }

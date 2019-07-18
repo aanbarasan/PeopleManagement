@@ -72,11 +72,19 @@ class BulkUploadModal extends React.Component{
     }
 
     uploadBulkData = () => {
-        Fetch.uploadBulkData({ body: {file: this.state.uploadFile}, success: function(data){
-            console.log(data);
-        }, error: function(data){
-            console.error(data);
-        }});
+        if(!this.state.uploadFile){
+            alert("Select file");
+            return;
+        }
+        const reader = new FileReader();
+        reader.onloadend = () => {
+            Fetch.uploadBulkData({ body: {file: reader.result}, success: function(data){
+                console.log(data);
+            }, error: function(data){
+                console.error(data);
+            }});
+        }
+        reader.readAsDataURL(this.state.uploadFile);
     }
 
     render(){

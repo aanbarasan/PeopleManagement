@@ -45,7 +45,7 @@ class DefaultHeader extends Component {
             </DropdownMenu>
           </UncontrolledDropdown>
         </Nav>
-        <AppAsideToggler className="d-md-down-none" />
+        <AppAsideToggler className="d-md-down-none" style={{"display":"none"}}/>
         {/*<AppAsideToggler className="d-lg-none" mobile />*/}
       </React.Fragment>
     );

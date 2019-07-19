@@ -128,14 +128,49 @@ class CreateEmployee extends React.Component{
     }
 
     render(){
+        let fieldLG = 6, fieldMD = 6, fieldSM = 6, fieldXS = 6;
         return(<div className="animated fadeIn">
             <Row>
-                <Col>
-                    Create Employee
+                <Col style={{"fontSize":"19px"}}>
+                    Add Employee
                 </Col>
                 <Col style={{"textAlign":"right"}}>
                     <Button onClick={this.bulkUpload}>Bulk Upload</Button>
                     <BulkUploadModal onRef={ref => (this.child = ref)} show={this.state.bulkUploadEnable}/>
+                </Col>
+            </Row>
+            <Row className="justify-content-md-center">
+                <Col lg={6} style={{"padding":"10px"}}>
+                    <Row>
+                        <Col lg={fieldLG} md={fieldMD} sm={fieldSM} xs={fieldXS}>
+                            <label>Name:</label>
+                            <input type={"text"}/>
+                        </Col>
+                        <Col lg={fieldLG} md={fieldMD} sm={fieldSM} xs={fieldXS}>
+                            <label>Age:</label>
+                            <input type={"text"}/>
+                        </Col>
+                        <Col lg={fieldLG} md={fieldMD} sm={fieldSM} xs={fieldXS}>
+                            <label>Gender:</label>
+                            <input type={"text"}/>
+                        </Col>
+                        <Col lg={fieldLG} md={fieldMD} sm={fieldSM} xs={fieldXS}>
+                            <label>Email:</label>
+                            <input type={"text"}/>
+                        </Col>
+                        <Col lg={fieldLG} md={fieldMD} sm={fieldSM} xs={fieldXS}>
+                            <label>CUG:</label>
+                            <input type={"text"}/>
+                        </Col>
+                        <Col lg={fieldLG} md={fieldMD} sm={fieldSM} xs={fieldXS}>
+                            <label>Position Level:</label>
+                            <input type={"text"}/>
+                        </Col>
+                        <Col lg={fieldLG} md={fieldMD} sm={fieldSM} xs={fieldXS}>
+                            <label>Contact:</label>
+                            <input type={"text"}/>
+                        </Col>
+                    </Row>
                 </Col>
             </Row>
         </div>)

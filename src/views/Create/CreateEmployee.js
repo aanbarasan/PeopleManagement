@@ -128,48 +128,193 @@ class CreateEmployee extends React.Component{
     }
 
     render(){
-        let fieldLG = 6, fieldMD = 6, fieldSM = 6, fieldXS = 6;
+        let fieldXL = 6, fieldLG = 6, fieldMD = 6, fieldSM = 12, fieldXS = 12;
         return(<div className="animated fadeIn">
             <Row>
-                <Col style={{"fontSize":"19px"}}>
+                <Col style={{"fontSize":"19px", "paddingRight":"0px"}}>
                     Add Employee
                 </Col>
-                <Col style={{"textAlign":"right"}}>
+                <Col style={{"textAlign":"right", "paddingLeft":"0px"}}>
                     <Button onClick={this.bulkUpload}>Bulk Upload</Button>
                     <BulkUploadModal onRef={ref => (this.child = ref)} show={this.state.bulkUploadEnable}/>
                 </Col>
             </Row>
-            <Row className="justify-content-md-center">
-                <Col lg={6} style={{"padding":"10px"}}>
-                    <Row>
-                        <Col lg={fieldLG} md={fieldMD} sm={fieldSM} xs={fieldXS}>
-                            <label>Name:</label>
-                            <input type={"text"}/>
+            <Row className="justify-content-center">
+                <Col xs={12} sm={9} md={10} lg={9} xl={7} className={"card"}>
+                    <Row className={"card-body"}>
+                        <Col xl={fieldXL} lg={fieldLG} md={fieldMD} sm={fieldSM} xs={fieldXS}>
+                            <div className={"form-group FormFieldandInput"}>
+                                <div name={"header"}>
+                                    Name
+                                </div>
+                                <div name={"input"}>
+                                    <input type={"text"} className={"form-control"}/>
+                                </div>
+                            </div>
+                            <div className={"form-group FormFieldandInput"}>
+                                <div name={"header"}>
+                                    Age
+                                </div>
+                                <div name={"input"}>
+                                    <input type={"text"} className={"form-control"}/>
+                                </div>
+                            </div>
+                            <div className={"form-group FormFieldandInput"}>
+                                <div name={"header"}>
+                                    Gender
+                                </div>
+                                <div name={"input"}>
+                                    <select className={"form-control"}>
+                                        <option>Male</option>
+                                        <option>Female</option>
+                                        <option>Others</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div className={"form-group FormFieldandInput"}>
+                                <div name={"header"}>
+                                    Position
+                                </div>
+                                <div name={"input"}>
+                                    <input type={"text"} className={"form-control"}/>
+                                </div>
+                            </div>
+                            <div className={"form-group FormFieldandInput"}>
+                                <div name={"header"}>
+                                    Level
+                                </div>
+                                <div name={"input"}>
+                                    <input type={"text"} className={"form-control"}/>
+                                </div>
+                            </div>
+                            <div className={"form-group FormFieldandInput"}>
+                                <div name={"header"}>
+                                    Contact
+                                </div>
+                                <div name={"input"}>
+                                    <input type={"text"} className={"form-control"}/>
+                                </div>
+                            </div>
+                            <div className={"form-group FormFieldandInput"}>
+                                <div name={"header"}>
+                                    Date of birth
+                                </div>
+                                <div name={"input"}>
+                                    <input type={"date"} className={"form-control"}/>
+                                </div>
+                            </div>
+                            <div className={"form-group FormFieldandInput"}>
+                                <div name={"header"}>
+                                    Date of joining
+                                </div>
+                                <div name={"input"}>
+                                    <input type={"date"} className={"form-control"}/>
+                                </div>
+                            </div>
+                            <div className={"form-group FormFieldandInput"}>
+                                <div name={"header"}>
+                                    Skills
+                                </div>
+                                <div name={"input"}>
+                                    <input type={"text"} className={"form-control"}/>
+                                </div>
+                            </div>
+                            <div className={"form-group FormFieldandInput"}>
+                                <div name={"header"}>
+                                    Experience
+                                </div>
+                                <div name={"input"}>
+                                    <input type={"text"} className={"form-control"}/>
+                                </div>
+                            </div>
                         </Col>
-                        <Col lg={fieldLG} md={fieldMD} sm={fieldSM} xs={fieldXS}>
-                            <label>Age:</label>
-                            <input type={"text"}/>
+                        <Col xl={fieldXL} lg={fieldLG} md={fieldMD} sm={fieldSM} xs={fieldXS}>
+                            <div className={"form-group FormFieldandInput"}>
+                                <div name={"header"}>
+                                    Permanent Address
+                                </div>
+                                <div name={"input"}>
+                                    <textarea  className={"form-control"}></textarea>
+                                </div>
+                            </div>
+                            <div className={"form-group FormFieldandInput"}>
+                                <div name={"header"}>
+                                    Present Address
+                                </div>
+                                <div name={"input"}>
+                                    <textarea  className={"form-control"}></textarea>
+                                </div>
+                            </div>
+                            <div className={"form-group FormFieldandInput"}>
+                                <div name={"header"}>
+                                    Blood Group
+                                </div>
+                                <div name={"input"}>
+                                    <select className={"form-control"}>
+                                        <option>A - positive</option>
+                                        <option>B - positive</option>
+                                        <option>O - positive</option>
+                                        <option>AB - positive</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div className={"form-group FormFieldandInput"}>
+                                <div name={"header"}>
+                                    Emergency contact
+                                </div>
+                                <div name={"input"}>
+                                    <input type={"text"} className={"form-control"}/>
+                                </div>
+                            </div>
+                            <div className={"form-group FormFieldandInput"}>
+                                <div name={"header"}>
+                                    Highest qualification
+                                </div>
+                                <div name={"input"}>
+                                    <select className={"form-control"}>
+                                        <option>B.E</option>
+                                        <option>B.Tect</option>
+                                        <option>M.E</option>
+                                        <option>Phd</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div className={"form-group FormFieldandInput"}>
+                                <div name={"header"}>
+                                    Project manager
+                                </div>
+                                <div name={"input"}>
+                                    <input type={"text"} className={"form-control"}/>
+                                </div>
+                            </div>
+                            <div className={"form-group FormFieldandInput"}>
+                                <div name={"header"}>
+                                    Bank account
+                                </div>
+                                <div name={"input"}>
+                                    <input type={"text"} className={"form-control"}/>
+                                </div>
+                            </div>
+                            <div className={"form-group FormFieldandInput"}>
+                                <div name={"header"}>
+                                    PAN
+                                </div>
+                                <div name={"input"}>
+                                    <input type={"text"} className={"form-control"}/>
+                                </div>
+                            </div>
+                            <div className={"form-group FormFieldandInput"}>
+                                <div name={"header"}>
+                                    Aadhar number
+                                </div>
+                                <div name={"input"}>
+                                    <input type={"text"} className={"form-control"}/>
+                                </div>
+                            </div>
                         </Col>
-                        <Col lg={fieldLG} md={fieldMD} sm={fieldSM} xs={fieldXS}>
-                            <label>Gender:</label>
-                            <input type={"text"}/>
-                        </Col>
-                        <Col lg={fieldLG} md={fieldMD} sm={fieldSM} xs={fieldXS}>
-                            <label>Email:</label>
-                            <input type={"text"}/>
-                        </Col>
-                        <Col lg={fieldLG} md={fieldMD} sm={fieldSM} xs={fieldXS}>
-                            <label>CUG:</label>
-                            <input type={"text"}/>
-                        </Col>
-                        <Col lg={fieldLG} md={fieldMD} sm={fieldSM} xs={fieldXS}>
-                            <label>Position Level:</label>
-                            <input type={"text"}/>
-                        </Col>
-                        <Col lg={fieldLG} md={fieldMD} sm={fieldSM} xs={fieldXS}>
-                            <label>Contact:</label>
-                            <input type={"text"}/>
-                        </Col>
+                    </Row>
+                    <Row className={"card-footer"} style={{"display":"block", "textAlign":"center", "padding":"20px"}}>
+                        <Button color={"success"} className={"btn-lg"}>Submit</Button>
                     </Row>
                 </Col>
             </Row>

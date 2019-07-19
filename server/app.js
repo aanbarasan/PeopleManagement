@@ -3,13 +3,35 @@ var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
+const fileUpload = require('express-fileupload');
+var bodyParser = require('body-parser');
+var db = require('./config/dbconnection');
+const config = require('config');
+var cors = require('cors')
 
 var indexRouter = require('./routes/index');
-var manageRouter = require('./routes/manage');
 var usersRouter = require('./routes/users');
+var apiRouter = require('./routes/api');
 
 var app = express();
 
+//const dbConnUrl = config.get('dbConfig.host')+config.get('dbConfig.dbName')+config.get('dbConfig.connectionOpt');
+db.connect(config.get('dbConfig.host'),config.get('dbConfig.dbName'),function(err) {
+  if (err) {
+    console.log('Unable to connect to Mongo.')
+    process.exit(1)
+  } else {
+	  /*db.get().collection('invoice').findOne({type:1},(err, res)=> {
+		console.log(res,'res---');
+	  })*/
+  }
+});
+
+app.use(fileUpload({
+    useTempFiles : true,
+    tempFileDir : '/tmp/'
+}));
+app.use(cors())
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
@@ -21,8 +43,8 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
-app.use('/manage', manageRouter);
 app.use('/users', usersRouter);
+app.use('/api', apiRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

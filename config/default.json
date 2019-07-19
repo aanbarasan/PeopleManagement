@@ -1,0 +1,10 @@
+{  
+  "dbConfig":{
+	"host":"mongodb://localhost:27017",
+	"dbName":"people_management",
+	"connectionOpt":"_?"	
+  },
+  "generalConfig":{
+	"xlxsFolderPath":"./server/public/uploads/"
+  }
+}

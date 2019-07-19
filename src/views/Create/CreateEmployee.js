@@ -90,27 +90,25 @@ class BulkUploadModal extends React.Component{
     render(){
 
         return(
-            <div>
-                <Modal isOpen={this.state.show} toggle={this.toggle} className={this.props.className}>
-                    <ModalHeader>
-                        Bulk Upload
-                    </ModalHeader>
-                    <ModalBody className={"nopadding"}>
-                        <div onDragEnter={this.onDragEnter} onDragLeave={this.onFileDragLeave} onDragOver={this.onFileDragOver} onDrop={this.onFileDrop} onClick={this.onFileContainerClick}>
-                            <button className={"UploadDropButton " + (this.state.uploadFile ? "UploadDropButtonSuccess" : "") + " " + (this.state.dropFileStatus ? "FileOverUploadDropButton" : "")}>
-                                {
-                                    this.state.uploadFile ? this.state.uploadFile.name : "Click to upload"
-                                }
-                            </button>
-                            <input type="file" id="uploadInputFile" style={{"display":"none"}} onChange={this.handleUploadFileChange}/>
-                        </div>
-                    </ModalBody>
-                    <ModalFooter>
-                        <Button color="primary" onClick={this.uploadBulkData}>Upload</Button>&nbsp;
-                        <Button color="secondary" onClick={this.closeModal}>Cancel</Button>
-                    </ModalFooter>
-                </Modal>
-            </div>
+            <Modal centered={true} isOpen={this.state.show} toggle={this.toggle} className={this.props.className}>
+                <ModalHeader>
+                    Bulk Upload
+                </ModalHeader>
+                <ModalBody className={"nopadding"}>
+                    <div onDragEnter={this.onDragEnter} onDragLeave={this.onFileDragLeave} onDragOver={this.onFileDragOver} onDrop={this.onFileDrop} onClick={this.onFileContainerClick}>
+                        <button className={"UploadDropButton " + (this.state.uploadFile ? "UploadDropButtonSuccess" : "") + " " + (this.state.dropFileStatus ? "FileOverUploadDropButton" : "")}>
+                            {
+                                this.state.uploadFile ? this.state.uploadFile.name : "Click to upload"
+                            }
+                        </button>
+                        <input type="file" id="uploadInputFile" style={{"display":"none"}} onChange={this.handleUploadFileChange}/>
+                    </div>
+                </ModalBody>
+                <ModalFooter>
+                    <Button color="primary" onClick={this.uploadBulkData}>Upload</Button>&nbsp;
+                    <Button color="secondary" onClick={this.closeModal}>Cancel</Button>
+                </ModalFooter>
+            </Modal>
         );
     }
 }

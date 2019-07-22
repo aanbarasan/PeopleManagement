@@ -76,15 +76,22 @@ class BulkUploadModal extends React.Component{
             alert("Select file");
             return;
         }
-        const reader = new FileReader();
+        /*const reader = new FileReader();
         reader.onloadend = () => {
-            Fetch.uploadBulkData({ body: {file: reader.result}, success: function(data){
+            Fetch.uploadBulkData({ body: {employee_xlxs: reader.result}, success: function(data){
                 console.log(data);
             }, error: function(data){
                 console.error(data);
             }});
         }
-        reader.readAsDataURL(this.state.uploadFile);
+        reader.readAsDataURL(this.state.uploadFile);*/
+
+        var formData = new FormData();
+        formData.append('employee_xlxs', this.state.uploadFile);
+        
+        var xhr = new XMLHttpRequest();
+        xhr.open("POST", Fetch.globalURL("/upload-employee-xlxs"), true);
+        xhr.send(formData);
     }
 
     render(){
@@ -229,22 +236,6 @@ class CreateEmployee extends React.Component{
                         <Col xl={fieldXL} lg={fieldLG} md={fieldMD} sm={fieldSM} xs={fieldXS}>
                             <div className={"form-group FormFieldandInput"}>
                                 <div name={"header"}>
-                                    Permanent Address
-                                </div>
-                                <div name={"input"}>
-                                    <textarea  className={"form-control"}></textarea>
-                                </div>
-                            </div>
-                            <div className={"form-group FormFieldandInput"}>
-                                <div name={"header"}>
-                                    Present Address
-                                </div>
-                                <div name={"input"}>
-                                    <textarea  className={"form-control"}></textarea>
-                                </div>
-                            </div>
-                            <div className={"form-group FormFieldandInput"}>
-                                <div name={"header"}>
                                     Blood Group
                                 </div>
                                 <div name={"input"}>
@@ -307,6 +298,22 @@ class CreateEmployee extends React.Component{
                                 </div>
                                 <div name={"input"}>
                                     <input type={"text"} className={"form-control"}/>
+                                </div>
+                            </div>
+                            <div className={"form-group FormFieldandInput"}>
+                                <div name={"header"}>
+                                    Permanent Address
+                                </div>
+                                <div name={"input"}>
+                                    <textarea  className={"form-control"}></textarea>
+                                </div>
+                            </div>
+                            <div className={"form-group FormFieldandInput"}>
+                                <div name={"header"}>
+                                    Present Address
+                                </div>
+                                <div name={"input"}>
+                                    <textarea  className={"form-control"}></textarea>
                                 </div>
                             </div>
                         </Col>

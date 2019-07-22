@@ -50,11 +50,14 @@ function fetchData(props) {
     xhr.send(json);
   }
   
-  let url = "http://localhost:3001";
+  let url = "http://localhost:3001/api";
   const Fetch = {
 
+    globalURL: function(localUrl){
+      return url + localUrl;
+    },
     uploadBulkData: function(props) {
-        props.url = url + "/manage/upload-bulkdata";
+        props.url = url + "/upload-employee-xlxs";
         props.method = "POST";
         fetchData(props);
     }

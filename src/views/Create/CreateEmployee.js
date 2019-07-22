@@ -1,12 +1,14 @@
 import React from 'react';
 import { Button, Col, Modal, ModalBody, ModalFooter, ModalHeader, Row } from 'reactstrap';
 import Fetch from '../../containers/Fetch';
+import {ToastsContainer, ToastsStore} from 'react-toasts';
+import Loader from '../../containers/svg_images/Loader'
 
 class BulkUploadModal extends React.Component{
 
     constructor(props){
         super(props);
-        this.state = {};
+        this.state = {loadingShow: false};
         this.state.show = false;
         this.state.dropFileStatus = false;
 
@@ -24,7 +26,7 @@ class BulkUploadModal extends React.Component{
 
     openModal(){
         this.setState({"show":true});
-        this.setState({"dropFileStatus": false, "uploadFile": null});
+        this.setState({"dropFileStatus": false, "uploadFile": null, "loadingShow": false});
     }
 
     closeModal(){
@@ -76,12 +78,24 @@ class BulkUploadModal extends React.Component{
             alert("Select file");
             return;
         }
-
+        this.setState({"loadingShow": true});
         var formData = new FormData();
         formData.append('employee_xlxs', this.state.uploadFile);
         
         var xhr = new XMLHttpRequest();
         xhr.open("POST", Fetch.globalURL("/upload-employee-xlxs"), true);
+        xhr.onreadystatechange = () =>  {
+            if (xhr.readyState === 4) {
+                if(xhr.status === 200){
+                    ToastsStore.success('Bulk upload successfully');
+                    this.closeModal();
+                }
+                else {
+                    ToastsStore.error('Bulk upload failed');
+                }
+                this.setState({"loadingShow": true});
+            }
+        }
         xhr.send(formData);
     }
 
@@ -103,7 +117,10 @@ class BulkUploadModal extends React.Component{
                     </div>
                 </ModalBody>
                 <ModalFooter>
-                    <Button color="primary" onClick={this.uploadBulkData}>Upload</Button>&nbsp;
+                    {
+                        this.state.loadingShow ? <Loader style={{"width":"30px"}}/> : null
+                    }
+                    <Button color="primary" onClick={this.uploadBulkData} disabled={this.state.loadingShow ? true : false}>Upload</Button>&nbsp;
                     <Button color="secondary" onClick={this.closeModal}>Cancel</Button>
                 </ModalFooter>
             </Modal>
@@ -115,7 +132,7 @@ class CreateEmployee extends React.Component{
 
     constructor(props){
         super(props);
-        this.state = {employeeName: ''};
+        this.state = {employeeName: '', loadingShow: false};
         this.state.bulkUploadEnable = false;
     }
 
@@ -125,9 +142,24 @@ class CreateEmployee extends React.Component{
 
     sumbitNewEmployee = () => {
         let params = {name: this.state.employeeName};
-
-        Fetch.sumbitNewEmployee({body:params, success:function(data){
-            console.log(data);
+        this.setState({"loadingShow": true});
+        Fetch.sumbitNewEmployee({body:params, success:(data) => {
+            if(data.status === 200){
+                ToastsStore.success('Employee added successfully');
+                this.setState({requestMessage: "", requestStatusClass: ""});
+            }
+            else {
+                let messages = [];
+                if(data.errors && data.errors.length > 0){
+                    for(var i=0;i<data.errors.length;i++){
+                        let e = data.errors[i];
+                        messages.push(e.msg + " '" + e.param  + "'");
+                    }
+                }
+                this.setState({requestMessage: messages.join(", "), requestStatusClass: "errorClass"});
+                ToastsStore.error('Employee added failed');
+            }
+            this.setState({"loadingShow": false});
         }});
     }
 
@@ -319,9 +351,24 @@ class CreateEmployee extends React.Component{
                         </Col>
                     </Row>
                     <Row className={"card-footer"} style={{"display":"block", "textAlign":"center", "padding":"20px"}}>
-                        <Button color={"success"} className={"btn-lg"} onClick={this.sumbitNewEmployee}>Submit</Button>
+                        {
+                            this.state.requestMessage ? 
+                            <Col>
+                                <div className={this.state.requestStatusClass} style={{"padding":"8px"}}>
+                                    <span>{this.state.requestMessage}</span>
+                                </div>
+                            </Col> : null
+                        }
+                        <Col>
+                            {
+                                this.state.loadingShow ? <Loader style={{"width":"30px"}}/> : null
+                            }
+                            <Button color={"success"} className={"btn-lg"} disabled={this.state.loadingShow ? true : false}
+                                onClick={this.sumbitNewEmployee}>Submit</Button>
+                        </Col>
                     </Row>
                 </Col>
+                <ToastsContainer store={ToastsStore}/>
             </Row>
         </div>)
     }

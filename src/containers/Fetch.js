@@ -56,8 +56,9 @@ function fetchData(props) {
     globalURL: function(localUrl){
       return url + localUrl;
     },
-    uploadBulkData: function(props) {
-        props.url = url + "/upload-employee-xlxs";
+    
+    sumbitNewEmployee: function(props) {
+        props.url = url + "/add-employee";
         props.method = "POST";
         fetchData(props);
     }

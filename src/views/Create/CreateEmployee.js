@@ -76,15 +76,6 @@ class BulkUploadModal extends React.Component{
             alert("Select file");
             return;
         }
-        /*const reader = new FileReader();
-        reader.onloadend = () => {
-            Fetch.uploadBulkData({ body: {employee_xlxs: reader.result}, success: function(data){
-                console.log(data);
-            }, error: function(data){
-                console.error(data);
-            }});
-        }
-        reader.readAsDataURL(this.state.uploadFile);*/
 
         var formData = new FormData();
         formData.append('employee_xlxs', this.state.uploadFile);
@@ -124,12 +115,20 @@ class CreateEmployee extends React.Component{
 
     constructor(props){
         super(props);
-        this.state = {};
+        this.state = {employeeName: ''};
         this.state.bulkUploadEnable = false;
     }
 
     bulkUpload = () => {
         this.child.openModal();
+    }
+
+    sumbitNewEmployee = () => {
+        let params = {name: this.state.employeeName};
+
+        Fetch.sumbitNewEmployee({body:params, success:function(data){
+            console.log(data);
+        }});
     }
 
     render(){
@@ -153,7 +152,8 @@ class CreateEmployee extends React.Component{
                                     Name
                                 </div>
                                 <div name={"input"}>
-                                    <input type={"text"} className={"form-control"}/>
+                                    <input type={"text"} className={"form-control"} value={this.state.employeeName} 
+                                        onChange={(event) => {this.setState({"employeeName":event.target.value})}}/>
                                 </div>
                             </div>
                             <div className={"form-group FormFieldandInput"}>
@@ -319,7 +319,7 @@ class CreateEmployee extends React.Component{
                         </Col>
                     </Row>
                     <Row className={"card-footer"} style={{"display":"block", "textAlign":"center", "padding":"20px"}}>
-                        <Button color={"success"} className={"btn-lg"}>Submit</Button>
+                        <Button color={"success"} className={"btn-lg"} onClick={this.sumbitNewEmployee}>Submit</Button>
                     </Row>
                 </Col>
             </Row>

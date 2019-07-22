@@ -7,8 +7,9 @@ const XLSX = require('xlsx');
 var fs = require('fs');
 var uniqid = require('uniqid');
 const config = require('config');
-var ApiModel = require('../model/api.js');
+const { check, validationResult } = require('express-validator');
 
+var ApiModel = require('../model/api.js');
 const xlFolderPath = config.get('generalConfig.xlxsFolderPath');
 
 
@@ -74,10 +75,8 @@ router.post('/upload-employee-xlxs', async (req, res, next) => {
 
 						if(xl_json[i].emergency_contact){
 							xl_json[i].emergency_contact = xl_json[i].emergency_contact.toString();
-						}
-						
+						}						
 					}
-
 					let emp_res = await ApiModel.InsertEmployees(xl_json);					
 					res.json({ status:200,message:'Uploaded successfully '});	
 				}		
@@ -91,8 +90,48 @@ router.post('/upload-employee-xlxs', async (req, res, next) => {
   
 });
 
+router.post('/add-employee', [
+  check('name').isLength({ min: 3,max:10}),  
+  check('gender').isLength({ min:1,max:2 }),  
+  check('position').isLength({ min: 4,max:30 }),
+  check('level').isLength({ min: 1,max:10 }),
+  check('email').isEmail(),
+  check('date_of_birth').isLength({ min:4,max:30}),
+  check('date_of_join').isLength({ min:1,max:30}),
+  check('blood_group').isLength({ min:1,max:30}),
+  check('phone').isLength({ min:8,max:20}),
+  check('emergency_contact').isLength({ min:8,max:20}),
+  check('project_manager').isLength({ min:3,max:50}),
+  check('project_manager_n_plus').isLength({ min:3,max:50}),
+  check('permanent_address').isLength({ min:3,max:250}),
+  check('present_address').isLength({ min:3,max:250})
+], async (req, res) => {	
+	//console.log(req.body,'req-----innnn--'); 
+  const errors = validationResult(req);
+  if (!errors.isEmpty()) {
+	  //res.status(422)
+     res.json({ status:422,errors: errors.array() });
+  }else{
+	  //console.log(req.body);
+	  	let email_exist = await ApiModel.CheckEmailAvailable(req.body.email);
+	  	if(email_exist>0){
+	  		res.json({ status:403,message:'Email has already registered'});
+	  	}else{
+	  		let date_of_birth = new Date(req.body.date_of_birth);
+	  		let date_of_join = new Date(req.body.date_of_join);
+
+	  		let emp_info = {name:req.body.name,gender:req.body.gender,position:req.body.position,level:req.body.level,email:req.body.email,dob:req.body.date_of_birth,doj:req.body.date_of_join,blood_group:req.body.blood_group,phone:req.body.phone,emergency_contact:req.body.emergency_contact,project_manager:req.body.project_manager,manager_n_plus:req.body.project_manager_n_plus,permanent_address:req.body.permanent_address,present_address:req.body.present_address,created_at:new Date()};
+
+	  		let insert_emp = await ApiModel.InsertEmployee(emp_info);
+
+	  		res.json({ status:200,message:'Employee added successfully'});
+
+	  	}	
+  }   
+});
+
 router.get('/get-sample-xl', function(req, res){
-  let sample_file = './public/download/sample.xlsx';
+  let sample_file = './server/public/download/sample.xlsx';
   res.download(sample_file); // Set disposition and send it.
 });
 

@@ -26,8 +26,9 @@
     "ejs": "~2.6.1",
     "enzyme": "^3.10.0",
     "enzyme-adapter-react-16": "^1.14.0",
-    "express-fileupload": "^1.1.5",
     "express": "~4.16.1",
+    "express-fileupload": "^1.1.5",
+    "express-validator": "^6.1.1",
     "flag-icon-css": "^3.3.0",
     "font-awesome": "^4.7.0",
     "http-errors": "~1.6.3",
@@ -45,9 +46,9 @@
     "react-test-renderer": "^16.8.6",
     "reactstrap": "^8.0.0",
     "read-excel-file": "^4.0.1",
+    "simple-line-icons": "^2.4.1",
     "uniqid": "^5.0.3",
-    "xlsx": "^0.14.3",
-    "simple-line-icons": "^2.4.1"
+    "xlsx": "^0.14.3"
   },
   "devDependencies": {
     "react-scripts": "^3.0.1"

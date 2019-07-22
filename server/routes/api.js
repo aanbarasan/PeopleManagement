@@ -7,6 +7,7 @@ const XLSX = require('xlsx');
 var fs = require('fs');
 var uniqid = require('uniqid');
 const config = require('config');
+var ApiModel = require('../model/api.js');
 
 const xlFolderPath = config.get('generalConfig.xlxsFolderPath');
 
@@ -17,7 +18,7 @@ router.get('/', function(req, res, next) {
 });
 
 //upload.array()
-router.post('/upload-employee-xlxs', (req, res, next) => {
+router.post('/upload-employee-xlxs', async (req, res, next) => {
 	
 	//console.log(req.files.employee_xlxs,'----------',req.files.employee_xlxs.mimetype,'-----',req.files.employee_xlxs.tempFilePath);
 	
@@ -34,7 +35,7 @@ router.post('/upload-employee-xlxs', (req, res, next) => {
 			let file_name = uniqid()+file_ext_name;	
 			uploadPath = xlFolderPath+file_name;
 
-			  employeeFile.mv(uploadPath, function(err) {
+			  employeeFile.mv(uploadPath, async function(err) {
 				if (err) {
 					return res.status(500).send(err);
 				}else{
@@ -54,20 +55,31 @@ router.post('/upload-employee-xlxs', (req, res, next) => {
 					
 					var created_at = new Date();
 					for (let i = 0; i < xl_json.length; i++) {
-						console.log(xl_json[i]);
+						//console.log(xl_json[i]);
 						xl_json[i].created_at = created_at;					  						  
 						let dob_val = xl_json[i].dob;
 						delete xl_json[i].dob;
-						console.log(dob_val,'dob_val');						
+						//console.log(dob_val,'dob_val');						
 						let dob_obj = new Date(1900, 0, dob_val); //date-formatted columns (such as 11/4/14) it gives it a value of 41947
 						if(typeof dob_val == 'number' && dob_obj && dob_obj !== null){
-							console.log(dob_obj,'dob_obj');
+							//console.log(dob_obj,'dob_obj');
 							xl_json[i].dob=dob_obj;
 						}else{
-							console.log(dob_obj,'dob_obj--else');
+							//console.log(dob_obj,'dob_obj--else');
 						}
-					}					
-					res.json({ status:200,data:xl_json});	
+
+						if(xl_json[i].phone){							
+							xl_json[i].phone = xl_json[i].phone.toString();							
+						}
+
+						if(xl_json[i].emergency_contact){
+							xl_json[i].emergency_contact = xl_json[i].emergency_contact.toString();
+						}
+						
+					}
+
+					let emp_res = await ApiModel.InsertEmployees(xl_json);					
+					res.json({ status:200,message:'Uploaded successfully '});	
 				}		
 			  })
 		}else{

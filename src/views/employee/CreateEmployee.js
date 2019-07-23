@@ -102,7 +102,7 @@ class BulkUploadModal extends React.Component{
     render(){
 
         return(
-            <Modal centered={true} isOpen={this.state.show} toggle={this.toggle} className={this.props.className}>
+            <Modal centered={true} backdrop={"static"} isOpen={this.state.show} toggle={this.toggle} className={this.props.className}>
                 <ModalHeader>
                     Bulk Upload
                 </ModalHeader>

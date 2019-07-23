@@ -35,14 +35,20 @@ function fetchData(props) {
         }
       }
     };
-    xhr.open(props.method, props.url, true);
+    let async = true;
+    if(typeof props.async === "boolean"){
+      async = props.async;
+    }
+    xhr.open(props.method, props.url, async);
     xhr.setRequestHeader("Content-type", "application/json; charset=utf-8");
-    xhr.timeout = props.timeout ? props.timeout : 180000;
-    xhr.ontimeout = function() {
-      if(props.onTimeout){
-        props.onTimeout();
-      }
-    };
+    if(async){
+      xhr.timeout = props.timeout ? props.timeout : 180000;
+      xhr.ontimeout = function() {
+        if(props.onTimeout){
+          props.onTimeout();
+        }
+      };
+    }
     let json;
     if(props.body){
       json = JSON.stringify(props.body);
@@ -59,6 +65,12 @@ function fetchData(props) {
     
     sumbitNewEmployee: function(props) {
         props.url = url + "/add-employee";
+        props.method = "POST";
+        fetchData(props);
+    },
+    
+    getAllEmployee: function(props) {
+        props.url = url + "/get-all-employee";
         props.method = "POST";
         fetchData(props);
     }

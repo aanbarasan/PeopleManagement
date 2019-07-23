@@ -7,34 +7,18 @@ export default {
       icon: 'icon-speedometer'
     },
     {
-      name: 'Create',
-      icon: 'fa fa-plus',
+      name: 'Employee',
+      icon: 'fa fa-user',
       children: [
         {
-          name: 'Employee',
-          url: '/create/employee',
+          name: 'Create employee',
+          url: '/employee/create',
           icon: 'fa fa-user-plus'
         },
         {
-          name: 'Device',
-          url: '/create/device',
-          icon: 'fa fa-laptop'
-        }
-      ]
-    },
-    {
-      name: 'View',
-      icon: 'fa fa-book',
-      children: [
-        {
-          name: 'Employee',
-          url: '/view/employee',
-          icon: 'fa fa-user'
-        },
-        {
-          name: 'Device',
-          url: '/view/device',
-          icon: 'fa fa-desktop'
+          name: 'Manage Employees',
+          url: '/employee/view',
+          icon: 'fa fa-book'
         }
       ]
     }

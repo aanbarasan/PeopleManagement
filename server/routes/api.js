@@ -94,7 +94,7 @@ router.post('/upload-employee-xlxs', async (req, res, next) => {
 });
 
 router.post('/add-employee', [
-  check('name').trim().isAlpha().isLength({ min: 3,max:10}),check('gender').toInt().isLength({ min:1,max:2 }),check('position').trim().isLength({ min: 4,max:30 }),check('level').trim().isLength({ min: 1,max:10 }),check('email').isEmail(),check('date_of_birth').trim().isLength({ min:4,max:30}),check('date_of_join').trim().isLength({ min:1,max:30}),check('blood_group').trim().isLength({ min:1,max:30}),check('phone').trim().isLength({ min:8,max:20}),check('emergency_contact').trim().isLength({ min:8,max:20}),check('project_manager').trim().isAlpha().isLength({ min:3,max:50}),check('project_manager_n_plus').trim().isAlpha().isLength({ min:3,max:50}),check('permanent_address').trim().isLength({ min:3,max:250}),check('present_address').trim().isLength({ min:3,max:250})
+  check('name').trim().isAlpha().isLength({ min: 3,max:10}),check('last_name').trim().isAlpha().isLength({ min:1,max:40}),check('gender').toInt().isLength({ min:1,max:2 }),check('position').trim().isLength({ min: 4,max:30 }),check('level').trim().isLength({ min: 1,max:10 }),check('email').isEmail(),check('date_of_birth').trim().isLength({ min:4,max:30}),check('date_of_join').trim().isLength({ min:1,max:30}),check('blood_group').trim().isLength({ min:1,max:30}),check('phone').trim().isLength({ min:8,max:20}),check('emergency_contact').trim().isLength({ min:8,max:20}),check('project_manager').trim().isAlpha().isLength({ min:3,max:50}),check('project_manager_n_plus').trim().isAlpha().isLength({ min:3,max:50}),check('permanent_address').trim().isLength({ min:3,max:250}),check('present_address').trim().isLength({ min:3,max:250}),check('emp_id').toInt().isLength({ min:2,max:10})
 ], async (req, res) => {	
 	//console.log(req.body,'req-----innnn--'); 
   const errors = validationResult(req);
@@ -136,7 +136,7 @@ router.get('/get-employees', async (req, res, next) => {
 	var filter_query = {q:q,from:from,limit:limit,position:position};
 
   	let employee_list = await ApiModel.GetEmployee(filter_query,0);
-  	res.json({status:200,message:employee_list});
+  	res.json({status:200,employee_list:employee_list});
 });
 
 

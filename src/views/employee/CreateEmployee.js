@@ -346,7 +346,7 @@ class CreateEmployee extends React.Component{
                                                 </div>
                                                 <div className={"form-group FormFieldandInput"}>
                                                     <div name={"header"}>
-                                                        Project manager
+                                                        N - Plus one
                                                     </div>
                                                     <div name={"input"}>
                                                         <input required type={"text"} className={"form-control"} value={this.state.employeeProjectManager} onChange={(event) => {this.setState({"employeeProjectManager":event.target.value})}}/>
@@ -357,7 +357,7 @@ class CreateEmployee extends React.Component{
                                                 </div>
                                                 <div className={"form-group FormFieldandInput"}>
                                                     <div name={"header"}>
-                                                        Project manager N-Plus
+                                                        N - Plus two
                                                     </div>
                                                     <div name={"input"}>
                                                         <input required type={"text"} className={"form-control"} value={this.state.employeeProjectManagerNPlus} onChange={(event) => {this.setState({"employeeProjectManagerNPlus":event.target.value})}}/>

@@ -216,186 +216,188 @@ class CreateEmployee extends React.Component{
                     switch(this.state.viewName){
                         case "NewEmployee":
                             return <Col xs={12} sm={9} md={10} lg={9} xl={7} className={"card"}>
-                                    <Row className={"card-body"}>
-                                        <Col xl={fieldXL} lg={fieldLG} md={fieldMD} sm={fieldSM} xs={fieldXS}>
-                                            <div className={"form-group FormFieldandInput"}>
-                                                <div name={"header"}>
-                                                    Name
+                                    <form onSubmit={this.sumbitNewEmployee}>
+                                        <Row className={"card-body"}>
+                                            <Col xl={fieldXL} lg={fieldLG} md={fieldMD} sm={fieldSM} xs={fieldXS}>
+                                                <div className={"form-group FormFieldandInput"}>
+                                                    <div name={"header"}>
+                                                        Name
+                                                    </div>
+                                                    <div name={"input"}>
+                                                        <input required type={"text"} className={"form-control"} value={this.state.employeeName}
+                                                            onChange={(event) => {this.setState({"employeeName":event.target.value})}}/>
+                                                    </div>
+                                                    {
+                                                        this.errorMessagePrint('name')
+                                                    }
                                                 </div>
-                                                <div name={"input"}>
-                                                    <input type={"text"} className={"form-control"} value={this.state.employeeName} 
-                                                        onChange={(event) => {this.setState({"employeeName":event.target.value})}}/>
+                                                <div className={"form-group FormFieldandInput"}>
+                                                    <div name={"header"}>
+                                                        Gender
+                                                    </div>
+                                                    <div name={"input"}>
+                                                        <select required className={"form-control"} value={this.state.employeeGender} onChange={(event) => {this.setState({"employeeGender":event.target.value})}}>
+                                                            <option value={1}>Male</option>
+                                                            <option value={2}>Female</option>
+                                                            <option value={3}>Others</option>
+                                                        </select>
+                                                    </div>
+                                                    {
+                                                        this.errorMessagePrint('gender')
+                                                    }
                                                 </div>
+                                                <div className={"form-group FormFieldandInput"}>
+                                                    <div name={"header"}>
+                                                        Position
+                                                    </div>
+                                                    <div name={"input"}>
+                                                        <input required type={"text"} className={"form-control"} value={this.state.employeePosition} onChange={(event) => {this.setState({"employeePosition":event.target.value})}}/>
+                                                    </div>
+                                                    {
+                                                        this.errorMessagePrint('position')
+                                                    }
+                                                </div>
+                                                <div className={"form-group FormFieldandInput"}>
+                                                    <div name={"header"}>
+                                                        Level
+                                                    </div>
+                                                    <div name={"input"}>
+                                                        <input required type={"text"} className={"form-control"} value={this.state.employeeLevel} onChange={(event) => {this.setState({"employeeLevel":event.target.value})}}/>
+                                                    </div>
+                                                    {
+                                                        this.errorMessagePrint('level')
+                                                    }
+                                                </div>
+                                                <div className={"form-group FormFieldandInput"}>
+                                                    <div name={"header"}>
+                                                        Email
+                                                    </div>
+                                                    <div name={"input"}>
+                                                        <input required type={"text"} className={"form-control"} value={this.state.employeeEmail} onChange={(event) => {this.setState({"employeeEmail":event.target.value})}}/>
+                                                    </div>
+                                                    {
+                                                        this.errorMessagePrint('email')
+                                                    }
+                                                </div>
+                                                <div className={"form-group FormFieldandInput"}>
+                                                    <div name={"header"}>
+                                                        Date of birth
+                                                    </div>
+                                                    <div name={"input"}>
+                                                        <input required type={"date"} className={"form-control"} value={this.state.employeeDOB} onChange={(event) => {this.setState({"employeeDOB":event.target.value})}}/>
+                                                    </div>
+                                                    {
+                                                        this.errorMessagePrint('date_of_birth')
+                                                    }
+                                                </div>
+                                                <div className={"form-group FormFieldandInput"}>
+                                                    <div name={"header"}>
+                                                        Date of joining
+                                                    </div>
+                                                    <div name={"input"}>
+                                                        <input required type={"date"} className={"form-control"} value={this.state.employeeDOJ} onChange={(event) => {this.setState({"employeeDOJ":event.target.value})}}/>
+                                                    </div>
+                                                    {
+                                                        this.errorMessagePrint('date_of_join')
+                                                    }
+                                                </div>
+                                            </Col>
+                                            <Col xl={fieldXL} lg={fieldLG} md={fieldMD} sm={fieldSM} xs={fieldXS}>
+                                                <div className={"form-group FormFieldandInput"}>
+                                                    <div name={"header"}>
+                                                        Blood Group
+                                                    </div>
+                                                    <div name={"input"}>
+                                                        <select required className={"form-control"} value={this.state.employeeBloodGroup} onChange={(event) => {this.setState({"employeeBloodGroup":event.target.value})}}>
+                                                            {
+                                                                this.bloodGroupList.map(function(key, index){
+                                                                    return <option key={index} value={key.value}>{key.name}</option>;
+                                                                })
+                                                            }
+                                                        </select>
+                                                    </div>
+                                                    {
+                                                        this.errorMessagePrint('blood_group')
+                                                    }
+                                                </div>
+                                                <div className={"form-group FormFieldandInput"}>
+                                                    <div name={"header"}>
+                                                        Contact
+                                                    </div>
+                                                    <div name={"input"}>
+                                                        <input required type={"text"} className={"form-control"} value={this.state.employeePhone} onChange={(event) => {this.setState({"employeePhone":event.target.value})}}/>
+                                                    </div>
+                                                    {
+                                                        this.errorMessagePrint('phone')
+                                                    }
+                                                </div>
+                                                <div className={"form-group FormFieldandInput"}>
+                                                    <div name={"header"}>
+                                                        Emergency contact
+                                                    </div>
+                                                    <div name={"input"}>
+                                                        <input required type={"text"} className={"form-control"} value={this.state.employeeEmergencyContact} onChange={(event) => {this.setState({"employeeEmergencyContact":event.target.value})}}/>
+                                                    </div>
+                                                    {
+                                                        this.errorMessagePrint('emergency_contact')
+                                                    }
+                                                </div>
+                                                <div className={"form-group FormFieldandInput"}>
+                                                    <div name={"header"}>
+                                                        Project manager
+                                                    </div>
+                                                    <div name={"input"}>
+                                                        <input required type={"text"} className={"form-control"} value={this.state.employeeProjectManager} onChange={(event) => {this.setState({"employeeProjectManager":event.target.value})}}/>
+                                                    </div>
+                                                    {
+                                                        this.errorMessagePrint('project_manager')
+                                                    }
+                                                </div>
+                                                <div className={"form-group FormFieldandInput"}>
+                                                    <div name={"header"}>
+                                                        Project manager N-Plus
+                                                    </div>
+                                                    <div name={"input"}>
+                                                        <input required type={"text"} className={"form-control"} value={this.state.employeeProjectManagerNPlus} onChange={(event) => {this.setState({"employeeProjectManagerNPlus":event.target.value})}}/>
+                                                    </div>
+                                                    {
+                                                        this.errorMessagePrint('project_manager_n_plus')
+                                                    }
+                                                </div>
+                                                <div className={"form-group FormFieldandInput"}>
+                                                    <div name={"header"}>
+                                                        Permanent Address
+                                                    </div>
+                                                    <div name={"input"}>
+                                                        <textarea required className={"form-control"} value={this.state.employeePermanentAddress} onChange={(event) => {this.setState({"employeePermanentAddress":event.target.value})}}></textarea>
+                                                    </div>
+                                                    {
+                                                        this.errorMessagePrint('permanent_address')
+                                                    }
+                                                </div>
+                                                <div className={"form-group FormFieldandInput"}>
+                                                    <div name={"header"}>
+                                                        Present Address
+                                                    </div>
+                                                    <div name={"input"}>
+                                                        <textarea required className={"form-control"} value={this.state.employeePresentAddress} onChange={(event) => {this.setState({"employeePresentAddress":event.target.value})}}></textarea>
+                                                    </div>
+                                                    {
+                                                        this.errorMessagePrint('present_address')
+                                                    }
+                                                </div>
+                                            </Col>
+                                        </Row>
+                                        <Row className={"card-footer"} style={{"display":"block", "textAlign":"center", "padding":"20px"}}>
+                                            <Col>
                                                 {
-                                                    this.errorMessagePrint('name')
+                                                    this.state.loadingShow ? <Loader style={{"width":"30px"}}/> : null
                                                 }
-                                            </div>
-                                            <div className={"form-group FormFieldandInput"}>
-                                                <div name={"header"}>
-                                                    Gender
-                                                </div>
-                                                <div name={"input"}>
-                                                    <select className={"form-control"} value={this.state.employeeGender} onChange={(event) => {this.setState({"employeeGender":event.target.value})}}>
-                                                        <option value={1}>Male</option>
-                                                        <option value={2}>Female</option>
-                                                        <option value={3}>Others</option>
-                                                    </select>
-                                                </div>
-                                                {
-                                                    this.errorMessagePrint('gender')
-                                                }
-                                            </div>
-                                            <div className={"form-group FormFieldandInput"}>
-                                                <div name={"header"}>
-                                                    Position
-                                                </div>
-                                                <div name={"input"}>
-                                                    <input type={"text"} className={"form-control"} value={this.state.employeePosition} onChange={(event) => {this.setState({"employeePosition":event.target.value})}}/>
-                                                </div>
-                                                {
-                                                    this.errorMessagePrint('position')
-                                                }
-                                            </div>
-                                            <div className={"form-group FormFieldandInput"}>
-                                                <div name={"header"}>
-                                                    Level
-                                                </div>
-                                                <div name={"input"}>
-                                                    <input type={"text"} className={"form-control"} value={this.state.employeeLevel} onChange={(event) => {this.setState({"employeeLevel":event.target.value})}}/>
-                                                </div>
-                                                {
-                                                    this.errorMessagePrint('level')
-                                                }
-                                            </div>
-                                            <div className={"form-group FormFieldandInput"}>
-                                                <div name={"header"}>
-                                                    Email
-                                                </div>
-                                                <div name={"input"}>
-                                                    <input type={"text"} className={"form-control"} value={this.state.employeeEmail} onChange={(event) => {this.setState({"employeeEmail":event.target.value})}}/>
-                                                </div>
-                                                {
-                                                    this.errorMessagePrint('email')
-                                                }
-                                            </div>
-                                            <div className={"form-group FormFieldandInput"}>
-                                                <div name={"header"}>
-                                                    Date of birth
-                                                </div>
-                                                <div name={"input"}>
-                                                    <input type={"date"} className={"form-control"} value={this.state.employeeDOB} onChange={(event) => {this.setState({"employeeDOB":event.target.value})}}/>
-                                                </div>
-                                                {
-                                                    this.errorMessagePrint('date_of_birth')
-                                                }
-                                            </div>
-                                            <div className={"form-group FormFieldandInput"}>
-                                                <div name={"header"}>
-                                                    Date of joining
-                                                </div>
-                                                <div name={"input"}>
-                                                    <input type={"date"} className={"form-control"} value={this.state.employeeDOJ} onChange={(event) => {this.setState({"employeeDOJ":event.target.value})}}/>
-                                                </div>
-                                                {
-                                                    this.errorMessagePrint('date_of_join')
-                                                }
-                                            </div>
-                                        </Col>
-                                        <Col xl={fieldXL} lg={fieldLG} md={fieldMD} sm={fieldSM} xs={fieldXS}>
-                                            <div className={"form-group FormFieldandInput"}>
-                                                <div name={"header"}>
-                                                    Blood Group
-                                                </div>
-                                                <div name={"input"}>
-                                                    <select className={"form-control"} value={this.state.employeeBloodGroup} onChange={(event) => {this.setState({"employeeBloodGroup":event.target.value})}}>
-                                                        {
-                                                            this.bloodGroupList.map(function(key, index){
-                                                                return <option key={index} value={key.value}>{key.name}</option>;
-                                                            })
-                                                        }
-                                                    </select>
-                                                </div>
-                                                {
-                                                    this.errorMessagePrint('blood_group')
-                                                }
-                                            </div>
-                                            <div className={"form-group FormFieldandInput"}>
-                                                <div name={"header"}>
-                                                    Contact
-                                                </div>
-                                                <div name={"input"}>
-                                                    <input type={"text"} className={"form-control"} value={this.state.employeePhone} onChange={(event) => {this.setState({"employeePhone":event.target.value})}}/>
-                                                </div>
-                                                {
-                                                    this.errorMessagePrint('phone')
-                                                }
-                                            </div>
-                                            <div className={"form-group FormFieldandInput"}>
-                                                <div name={"header"}>
-                                                    Emergency contact
-                                                </div>
-                                                <div name={"input"}>
-                                                    <input type={"text"} className={"form-control"} value={this.state.employeeEmergencyContact} onChange={(event) => {this.setState({"employeeEmergencyContact":event.target.value})}}/>
-                                                </div>
-                                                {
-                                                    this.errorMessagePrint('emergency_contact')
-                                                }
-                                            </div>
-                                            <div className={"form-group FormFieldandInput"}>
-                                                <div name={"header"}>
-                                                    Project manager
-                                                </div>
-                                                <div name={"input"}>
-                                                    <input type={"text"} className={"form-control"} value={this.state.employeeProjectManager} onChange={(event) => {this.setState({"employeeProjectManager":event.target.value})}}/>
-                                                </div>
-                                                {
-                                                    this.errorMessagePrint('project_manager')
-                                                }
-                                            </div>
-                                            <div className={"form-group FormFieldandInput"}>
-                                                <div name={"header"}>
-                                                    Project manager N-Plus
-                                                </div>
-                                                <div name={"input"}>
-                                                    <input type={"text"} className={"form-control"} value={this.state.employeeProjectManagerNPlus} onChange={(event) => {this.setState({"employeeProjectManagerNPlus":event.target.value})}}/>
-                                                </div>
-                                                {
-                                                    this.errorMessagePrint('project_manager_n_plus')
-                                                }
-                                            </div>
-                                            <div className={"form-group FormFieldandInput"}>
-                                                <div name={"header"}>
-                                                    Permanent Address
-                                                </div>
-                                                <div name={"input"}>
-                                                    <textarea  className={"form-control"} value={this.state.employeePermanentAddress} onChange={(event) => {this.setState({"employeePermanentAddress":event.target.value})}}></textarea>
-                                                </div>
-                                                {
-                                                    this.errorMessagePrint('permanent_address')
-                                                }
-                                            </div>
-                                            <div className={"form-group FormFieldandInput"}>
-                                                <div name={"header"}>
-                                                    Present Address
-                                                </div>
-                                                <div name={"input"}>
-                                                    <textarea  className={"form-control"} value={this.state.employeePresentAddress} onChange={(event) => {this.setState({"employeePresentAddress":event.target.value})}}></textarea>
-                                                </div>
-                                                {
-                                                    this.errorMessagePrint('present_address')
-                                                }
-                                            </div>
-                                        </Col>
-                                    </Row>
-                                    <Row className={"card-footer"} style={{"display":"block", "textAlign":"center", "padding":"20px"}}>
-                                        <Col>
-                                            {
-                                                this.state.loadingShow ? <Loader style={{"width":"30px"}}/> : null
-                                            }
-                                            <Button color={"success"} className={"btn-lg"} disabled={this.state.loadingShow ? true : false}
-                                                onClick={this.sumbitNewEmployee}>Submit</Button>
-                                        </Col>
-                                    </Row>
+                                                <Button color={"success"} className={"btn-lg"} type={"submit"}
+                                                    disabled={this.state.loadingShow ? true : false}>Submit</Button>
+                                            </Col>
+                                        </Row>
+                                    </form>
                                 </Col>
                         case "SuccessPage":
                             return <Col xl={3}>

@@ -136,7 +136,8 @@ class CreateEmployee extends React.Component{
         this.state.loadingShow = false;
         this.state.bulkUploadEnable = false;
         this.state.viewName = "NewEmployee";
-        this.bloodGroupList = [{name: "A - positive", value: "A+"}, {name: "B - positive", value: "B+"}, {name: "O - positive", value: "O+"}, {name: "AB - positive", value: "AB+"}];
+        this.bloodGroupList = [{name: "A - positive", value: "A+"}, {name: "A - negative", value: "A-"}, {name: "B - positive", value: "B+"}, {name: "B - negative", value: "B-"}, 
+            {name: "O - positive", value: "O+"}, {name: "O - negative", value: "O-"}, {name: "AB - positive", value: "AB+"}, {name: "AB - negative", value: "AB-"}];
     }
 
     bulkUpload = () => {

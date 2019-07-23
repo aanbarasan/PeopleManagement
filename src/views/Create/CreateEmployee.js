@@ -207,7 +207,8 @@ class CreateEmployee extends React.Component{
                     Add Employee
                 </Col>
                 <Col style={{"textAlign":"right", "paddingLeft":"0px"}}>
-                    <Button onClick={this.bulkUpload}>Bulk Upload</Button>
+                    <a href={Fetch.globalURL("/get-sample-xl")} title={"Sample file"}>Sample <i className={"fa fa-download"}></i></a>&nbsp;&nbsp;&nbsp;&nbsp;
+                    <Button onClick={this.bulkUpload} color={"primary"}>Bulk Upload</Button>
                     <BulkUploadModal onRef={ref => (this.child = ref)} show={this.state.bulkUploadEnable}/>
                 </Col>
             </Row>
@@ -273,7 +274,7 @@ class CreateEmployee extends React.Component{
                                                         Email
                                                     </div>
                                                     <div name={"input"}>
-                                                        <input required type={"text"} className={"form-control"} value={this.state.employeeEmail} onChange={(event) => {this.setState({"employeeEmail":event.target.value})}}/>
+                                                        <input required type={"email"} className={"form-control"} value={this.state.employeeEmail} onChange={(event) => {this.setState({"employeeEmail":event.target.value})}}/>
                                                     </div>
                                                     {
                                                         this.errorMessagePrint('email')
@@ -325,7 +326,7 @@ class CreateEmployee extends React.Component{
                                                         Contact
                                                     </div>
                                                     <div name={"input"}>
-                                                        <input required type={"text"} className={"form-control"} value={this.state.employeePhone} onChange={(event) => {this.setState({"employeePhone":event.target.value})}}/>
+                                                        <input required type={"number"} className={"form-control removeUpDownArrow"} value={this.state.employeePhone} onChange={(event) => {this.setState({"employeePhone":event.target.value})}}/>
                                                     </div>
                                                     {
                                                         this.errorMessagePrint('phone')
@@ -336,7 +337,7 @@ class CreateEmployee extends React.Component{
                                                         Emergency contact
                                                     </div>
                                                     <div name={"input"}>
-                                                        <input required type={"text"} className={"form-control"} value={this.state.employeeEmergencyContact} onChange={(event) => {this.setState({"employeeEmergencyContact":event.target.value})}}/>
+                                                        <input required type={"number"} className={"form-control removeUpDownArrow"} value={this.state.employeeEmergencyContact} onChange={(event) => {this.setState({"employeeEmergencyContact":event.target.value})}}/>
                                                     </div>
                                                     {
                                                         this.errorMessagePrint('emergency_contact')

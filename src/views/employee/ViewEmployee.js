@@ -1,95 +1,65 @@
 import React from 'react';
 import Fetch from '../../containers/Fetch';
-import {Row, Col} from 'reactstrap';
+import {Row, Col, Button} from 'reactstrap';
+import {BootstrapTable, TableHeaderColumn} from 'react-bootstrap-table';
+import 'react-bootstrap-table/dist/react-bootstrap-table-all.min.css';
 
 class ViewEmployee extends React.Component{
 
     constructor(props){
         super(props);
-        this.state = {};
-        this.state.tableColumns = [{"text":"", "field": "picture"}, {"text":"Name", "field": "name"}, {"text":"Phone", "field": "phone"}, {"text":"Position", "field": "position"}, {"text":"Date of join", "field": "doj"}];
+        this.state = {"searchText": "", "employeePosition": "software"};
         this.state.tableData = [];
         this.state.windowWidth = window.screen.width;
     }
 
     componentDidMount = () => {
-        Fetch.getAllEmployee({body:{}, success: (data) => {
+        window.addEventListener("resize", () => {
+            this.setState({"windowWidth": window.screen.width});
+        });
+        this.search();
+    }
+
+    search = () => {
+        Fetch.getAllEmployee({body:{"q": this.state.searchText, "position": this.state.employeePosition}, success: (data) => {
             console.log(data);
-            this.setState({"tableData": data});
+            if(data.status === 200){
+                this.setState({"tableData": data.message});
+            }
         }, error: () => {
             let data = [{"name":"Jagadeesh", "phone":"9729387438", "position":"Senior software engineer", "doj":"01-01-2019"}, {"name":"Jagadeesh", "phone":"9729387438", "position":"Senior software engineer", "doj":"01-01-2019"}, {"name":"Jagadeesh", "phone":"9729387438", "position":"Senior software engineer", "doj":"01-01-2019"}];
             this.setState({"tableData": data});
         }});
-        window.addEventListener("resize", (event) => {
-            this.setState({"windowWidth": window.screen.width});
-        });
     }
 
     render(){
         return(<div className="animated fadeIn">
             <Row>
-                <Col style={{"fontSize":"19px", "textAlign":"center"}}>
+                <Col xs={12} style={{"fontSize":"19px", "textAlign":"center"}}>
                     List of Employees
+                </Col>
+                <Col xs={12} style={{"textAlign":"center", "marginTop":"10px"}}>
+                    <label>Search: </label>
+                    <input type={"text"} placeholder={"Enter text"} className={"form-control"} style={{"width":"200px", "display":"inline-block"}}
+                        value={this.state.searchText} onChange={(event) => {this.setState({"searchText":event.target.value})}}/>&nbsp;&nbsp;&nbsp;&nbsp;
+                    <label>Position: </label>
+                    <select className={"form-control"} style={{"width":"200px", "display":"inline-block"}}
+                        value={this.state.employeePosition} onChange={(event) => {this.setState({"employeePosition":event.target.value})}}>
+                        <option value={"software"}>Software Engineer</option>
+                        <option value={"senier_software"}>Senier Software Engineer</option>
+                        <option value={"tester"}>Software Tester</option>
+                    </select>&nbsp;&nbsp;&nbsp;&nbsp;
+                    <Button onClick={this.search}>Search</Button>
                 </Col>
             </Row>
             <Row className="justify-content-center" style={{"marginTop":"20px"}}>
-                <Col xl={8}>
-                    {
-                        (this.state.tableData && this.state.tableData.length > 0) ? 
-                            (this.state.windowWidth > 600  ? <table style={{"width":"100%"}}>
-                                <thead>
-                                    <tr>
-                                        {
-                                            this.state.tableColumns.map((key, index) => {
-                                                return <th key={index} style={{"padding":"15px 5px 10px 5px"}}>{key.text}</th>
-                                            })
-                                        }
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    {
-                                        this.state.tableData.map((keyRow, indexRow) => {
-                                            return <tr key={indexRow} style={{"borderBottom":"1px solid #bfbfbfd4", "cursor":"pointer"}}>
-                                                {
-                                                    this.state.tableColumns.map((keyCol, indexCol) => {
-                                                        if(keyCol.field === "picture"){
-                                                            return <td style={{"width":"50px"}} key={indexCol}>
-                                                                    <img src={"https://a.disquscdn.com/1561077851/images/noavatar92.png"} className={"userImageClass"} alt={"Profile"}/>
-                                                                </td>
-                                                        }
-                                                        else {
-                                                            return <td key={indexCol} style={{"padding":"15px 5px 10px 5px"}}>{keyRow[keyCol.field]}</td>
-                                                        }
-                                                    })
-                                                }
-                                            </tr>
-                                        })
-                                    }
-                                </tbody>
-                            </table> : 
-                            <Row>
-                                {
-                                    this.state.tableData.map((keyRow, indexRow) => {
-                                        return <Col xs={12} key={indexRow} style={{"padding":"15px"}}>
-                                            {
-                                                this.state.tableColumns.map((keyCol, indexCol) => {
-                                                    if(keyCol.field === "picture"){
-                                                        return null;
-                                                    }
-                                                    else {
-                                                        return <div key={indexCol}>{keyCol.text}: {keyRow[keyCol.field]}</div>
-                                                    }
-                                                })
-                                            }
-                                        </Col>
-                                    })
-                                }
-                            </Row>
-                            ) : 
-                        <div>
-                            No data found
-                        </div>
-                    }
+                <Col xl={8} style={{"backgroundColor":"white", "padding":"15px", "borderRadius":"5px"}}>
+                    <BootstrapTable data={ this.state.tableData}>
+                        <TableHeaderColumn dataField='name' isKey={true}>Name</TableHeaderColumn>
+                        <TableHeaderColumn dataField='phone'>Phone</TableHeaderColumn>
+                        <TableHeaderColumn dataField='position'>Position</TableHeaderColumn>
+                        <TableHeaderColumn dataField='doj'>Date of join</TableHeaderColumn>
+                    </BootstrapTable>
                 </Col>
             </Row>
         </div>);

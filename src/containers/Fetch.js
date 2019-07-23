@@ -70,8 +70,8 @@ function fetchData(props) {
     },
     
     getAllEmployee: function(props) {
-        props.url = url + "/get-all-employee";
-        props.method = "POST";
+        props.url = url + "/get-employees";
+        props.method = "GET";
         fetchData(props);
     }
   }

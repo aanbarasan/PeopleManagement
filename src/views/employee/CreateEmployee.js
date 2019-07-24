@@ -1,6 +1,7 @@
 import React from 'react';
 import { Button, Col, Modal, ModalBody, ModalFooter, ModalHeader, Row } from 'reactstrap';
 import Fetch from '../../containers/Fetch';
+import ConstantValues from '../../containers/ConstantValues';
 import {ToastsContainer, ToastsStore} from 'react-toasts';
 import Loader from '../../containers/svg_images/Loader'
 
@@ -132,12 +133,10 @@ class CreateEmployee extends React.Component{
 
     constructor(props){
         super(props);
-        this.state = this.getDefaultFormFeilds();;
+        this.state = this.getDefaultFormFeilds();
         this.state.loadingShow = false;
         this.state.bulkUploadEnable = false;
         this.state.viewName = "NewEmployee";
-        this.bloodGroupList = [{name: "A - positive", value: "A+"}, {name: "A - negative", value: "A-"}, {name: "B - positive", value: "B+"}, {name: "B - negative", value: "B-"}, 
-            {name: "O - positive", value: "O+"}, {name: "O - negative", value: "O-"}, {name: "AB - positive", value: "AB+"}, {name: "AB - negative", value: "AB-"}];
     }
 
     bulkUpload = () => {
@@ -145,17 +144,13 @@ class CreateEmployee extends React.Component{
     }
 
     getDefaultFormFeilds = () => {
-        return {employeeName: '', employeeGender: 1, employeePosition: '', employeeLevel: '', employeeEmail: '', employeeDOB: '', 
-            employeeDOJ: '', employeeBloodGroup: "A+", employeePhone: '', employeeEmergencyContact: '', employeeProjectManager: '', 
+        return {employeeID: '', employeeName: '', employeeLastName: '', employeeGender: 1, employeePosition: ConstantValues.EmployeePositions[0].value, employeeLevel: '', employeeEmail: '', employeeDOB: '', 
+            employeeDOJ: '', employeeBloodGroup: ConstantValues.BloodGrouplist[0].value, employeePhone: '', employeeEmergencyContact: '', employeeProjectManager: '', 
             employeeProjectManagerNPlus: '', employeePermanentAddress: '', employeePresentAddress: ''};        
     }
 
-    getDefaultFormFeilds1 = () => {
-        return {employeeName: 'Raja sekar', employeeGender: 1, employeePosition: 'Software Engineer', employeeLevel: '7A', employeeEmail: 'rajasekar.murugesan@soprasteria.com', employeeDOB: "2019-07-04", employeeDOJ: "2019-07-04", employeeBloodGroup: "B+", employeePhone:'9845632765', employeeEmergencyContact: '9845632765', employeeProjectManager: 'Jagadeesh', employeeProjectManagerNPlus: 'Santhosh', employeePermanentAddress: 'Chennai', employeePresentAddress: 'Chennai'};
-    }
-
     sumbitNewEmployee = () => {
-        let params = {name: this.state.employeeName, gender: this.state.employeeGender, position: this.state.employeePosition, 
+        let params = {emp_id: this.state.employeeID, name: this.state.employeeName, last_name: this.state.employeeLastName, gender: this.state.employeeGender, position: this.state.employeePosition, 
                     level: this.state.employeeLevel, email: this.state.employeeEmail, date_of_birth: this.state.employeeDOB, date_of_join: this.state.employeeDOJ,
                     blood_group: this.state.employeeBloodGroup, phone: this.state.employeePhone, emergency_contact: this.state.employeeEmergencyContact, 
                     project_manager: this.state.employeeProjectManager, project_manager_n_plus: this.state.employeeProjectManagerNPlus,
@@ -223,7 +218,19 @@ class CreateEmployee extends React.Component{
                                             <Col xl={fieldXL} lg={fieldLG} md={fieldMD} sm={fieldSM} xs={fieldXS}>
                                                 <div className={"form-group FormFieldandInput"}>
                                                     <div name={"header"}>
-                                                        Name
+                                                        Employee ID
+                                                    </div>
+                                                    <div name={"input"}>
+                                                        <input required type={"number"} className={"form-control removeUpDownArrow"} value={this.state.employeeID}
+                                                            onChange={(event) => {this.setState({"employeeID":event.target.value})}}/>
+                                                    </div>
+                                                    {
+                                                        this.errorMessagePrint('emp_id')
+                                                    }
+                                                </div>
+                                                <div className={"form-group FormFieldandInput"}>
+                                                    <div name={"header"}>
+                                                        First name
                                                     </div>
                                                     <div name={"input"}>
                                                         <input required type={"text"} className={"form-control"} value={this.state.employeeName}
@@ -231,6 +238,18 @@ class CreateEmployee extends React.Component{
                                                     </div>
                                                     {
                                                         this.errorMessagePrint('name')
+                                                    }
+                                                </div>
+                                                <div className={"form-group FormFieldandInput"}>
+                                                    <div name={"header"}>
+                                                        Last name
+                                                    </div>
+                                                    <div name={"input"}>
+                                                        <input required type={"text"} className={"form-control"} value={this.state.employeeLastName}
+                                                            onChange={(event) => {this.setState({"employeeLastName":event.target.value})}}/>
+                                                    </div>
+                                                    {
+                                                        this.errorMessagePrint('last_name')
                                                     }
                                                 </div>
                                                 <div className={"form-group FormFieldandInput"}>
@@ -246,17 +265,6 @@ class CreateEmployee extends React.Component{
                                                     </div>
                                                     {
                                                         this.errorMessagePrint('gender')
-                                                    }
-                                                </div>
-                                                <div className={"form-group FormFieldandInput"}>
-                                                    <div name={"header"}>
-                                                        Position
-                                                    </div>
-                                                    <div name={"input"}>
-                                                        <input required type={"text"} className={"form-control"} value={this.state.employeePosition} onChange={(event) => {this.setState({"employeePosition":event.target.value})}}/>
-                                                    </div>
-                                                    {
-                                                        this.errorMessagePrint('position')
                                                     }
                                                 </div>
                                                 <div className={"form-group FormFieldandInput"}>
@@ -312,7 +320,7 @@ class CreateEmployee extends React.Component{
                                                     <div name={"input"}>
                                                         <select required className={"form-control"} value={this.state.employeeBloodGroup} onChange={(event) => {this.setState({"employeeBloodGroup":event.target.value})}}>
                                                             {
-                                                                this.bloodGroupList.map(function(key, index){
+                                                                ConstantValues.BloodGrouplist.map(function(key, index){
                                                                     return <option key={index} value={key.value}>{key.name}</option>;
                                                                 })
                                                             }
@@ -320,6 +328,23 @@ class CreateEmployee extends React.Component{
                                                     </div>
                                                     {
                                                         this.errorMessagePrint('blood_group')
+                                                    }
+                                                </div>
+                                                <div className={"form-group FormFieldandInput"}>
+                                                    <div name={"header"}>
+                                                        Position
+                                                    </div>
+                                                    <div name={"input"}>
+                                                        <select required className={"form-control"} value={this.state.employeePosition} onChange={(event) => {this.setState({"employeePosition":event.target.value})}}>
+                                                            {
+                                                                ConstantValues.EmployeePositions.map(function(key, index){
+                                                                    return <option key={index} value={key.value}>{key.name}</option>;
+                                                                })
+                                                            }
+                                                        </select>
+                                                    </div>
+                                                    {
+                                                        this.errorMessagePrint('position')
                                                     }
                                                 </div>
                                                 <div className={"form-group FormFieldandInput"}>

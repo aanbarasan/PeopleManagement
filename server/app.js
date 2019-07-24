@@ -21,6 +21,7 @@ db.connect(config.get('dbConfig.host'),config.get('dbConfig.dbName'),function(er
     console.log('Unable to connect to Mongo.')
     process.exit(1)
   } else {
+    console.log('DB Connected...');
 	  /*db.get().collection('invoice').findOne({type:1},(err, res)=> {
 		console.log(res,'res---');
 	  })*/

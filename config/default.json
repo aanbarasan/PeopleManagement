@@ -6,5 +6,8 @@
   },
   "generalConfig":{
 	"xlxsFolderPath":"./server/public/uploads/"
+  },
+  "pagination":{
+  	"limit":10
   }
 }
